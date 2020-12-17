@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    {% include 'messages.html' %}
+
+    <!-- <a class="btn btn-secondary" href="{% url 'vra:index' %}"> Atras </a> -->
+    <form action="{% url 'vra:create_cobertura' %}" method="post"> {% csrf_token %}
+
+        <div class="form-group col-6">
+            <label for="exampleInputDescripcion">Descripción</label>
+            <input type="text" class="form-control" id="exampleInputDescripcion" name="descripcion" >
+        </div>
+
+        <div class="form-group col-6">
+            <label for="exampleInputEstado">Estado</label>
+            <select name="estado" class="form-control" id="exampleInputEstado" required>
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="INACTIVO">INACTIVO</option>
+            </select>
+        </div>
+
+        <input class="btn btn-success" type="submit" value="Crear" >
+        <a href="{% url 'vra:index' %}" class="btn btn-danger">Cancelar</a>
+    </form>
+
+    <!-- <button id="crearSeguro">validar</button> -->
+
+</div>
+
+
+{% endblock %}

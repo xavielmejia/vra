@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+    {% include 'messages.html' %}
+
+    <h1>{{seguro.nombre}}</h1>
+
+    <!-- <a class="btn btn-secondary" href="{% url 'vra:index' %}"> Atras </a> -->
+    <form action="{% url 'vra:confirm_update_seguro' seguro.seguro_id %}" method="post"> {% csrf_token %}
+
+        <div class="form-group col-6">
+            <label for="exampleInputEstado">Estado</label>
+            <select name="estado" class="form-control" id="exampleInputEstado" required>
+                {% if seguro.estado == 'ACTIVO' %}
+                    <option value="ACTIVO">ACTIVO</option>
+                    <option value="INACTIVO">INACTIVO</option>
+                {% else %}
+                    <option value="INACTIVO">ACTIVO</option>
+                    <option value="ACTIVO">INACTIVO</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputColor" maxlength="7">Color</label>
+            <input type="text" value="{{ seguro.color }}" class="form-control" id="exampleInputColor" name="color" >
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPrima">Prima Minima</label>
+            <input type="number" value="{{ seguro.prima_minima }}" class="form-control" id="exampleInputPrima" name="prima_minima" >
+        </div>
+
+        <input class="btn btn-success" type="submit" value="Actualizar" >
+        <a href="{% url 'vra:see_seguros' %}" class="btn btn-danger">Cancelar</a>
+
+    </form>
+
+    <!-- <button id="crearSeguro">validar</button> -->
+
+</div>
+
+
+<script>
+$(document).ready(function(){
+    $("#exampleInputNombre").on("input", function(){
+        $("#message").text("");
+    });
+});
+</script>
+
+{% endblock %}
